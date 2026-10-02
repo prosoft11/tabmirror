@@ -1,0 +1,69 @@
+{
+  "name": "tabmirror",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.3 <23"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "generate": "node scripts/generate-contracts.mjs",
+    "dev": "npm run generate && node --env-file=.env scripts/dev.mjs",
+    "typecheck": "npm run generate && tsc --noEmit",
+    "test": "npm run generate && vitest run",
+    "build": "npm run generate && node scripts/build.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run typecheck && npm test && npm run build && npm run test:built && npm run format:check",
+    "test:built": "node scripts/verify-build.mjs && node scripts/verify-private-build.mjs && node scripts/verify-auth-build.mjs",
+    "dev:collector": "npm run generate && node --env-file=.env --import tsx apps/api/src/collector-main.ts",
+    "test:extension": "npm run build && node --import tsx scripts/verify-extension.ts",
+    "dev:private": "npm run generate && node --env-file=.env --import tsx apps/api/src/private-main.ts",
+    "test:private-extension": "npm run build && node --import tsx scripts/verify-extension.ts --private",
+    "dev:auth": "npm run generate && node --env-file=.env scripts/dev.mjs --auth",
+    "test:auth": "npm run build && node --import tsx scripts/verify-auth.ts",
+    "test:mobile": "npm run build && node --import tsx scripts/verify-mobile.ts",
+    "test:reliability": "npm run check && node --import tsx scripts/verify-extension.ts --private && node --import tsx scripts/verify-auth.ts && node --import tsx scripts/verify-mobile.ts",
+    "build:production": "npm run generate && node scripts/build-production.mjs",
+    "infra:synth": "npm run build:production && cdk synth --no-lookups --quiet --strict",
+    "test:cloud": "vitest run tests/cloud-store.test.ts tests/cloud-http.test.ts tests/infra.test.ts",
+    "aws:preflight": "node scripts/aws-preflight.mjs"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "8.10.164",
+    "@types/chrome": "0.3.0",
+    "@types/node": "22.20.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "aws-cdk": "2.1144.0",
+    "aws-cdk-lib": "2.272.0",
+    "constructs": "10.8.1",
+    "esbuild": "0.28.2",
+    "json-schema-to-typescript": "16.0.0",
+    "playwright": "1.63.0",
+    "prettier": "3.9.8",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.0",
+    "vitest": "5.0.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "3.1145.0",
+    "@aws-sdk/client-s3": "3.1145.0",
+    "@aws-sdk/client-sts": "3.1145.0",
+    "@aws-sdk/lib-dynamodb": "3.1145.0",
+    "jsonc-parser": "3.3.1",
+    "openid-client": "6.8.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "overrides": {
+    "brace-expansion": "5.0.12"
+  }
+}

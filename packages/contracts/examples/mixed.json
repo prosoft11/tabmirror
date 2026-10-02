@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "browserSessionId": "e5d6c901-9a8c-4ac5-bbe9-764a50adce6e",
+  "revision": 42,
+  "capturedAt": "2026-09-21T12:00:00Z",
+  "omittedTabCount": 1,
+  "windows": [
+    {
+      "id": 12,
+      "focused": true,
+      "tabs": [
+        {
+          "id": 101,
+          "index": 0,
+          "groupId": null,
+          "title": "Pinned reference",
+          "url": "https://example.com/reference",
+          "pinned": true
+        },
+        {
+          "id": 102,
+          "index": 1,
+          "groupId": 7,
+          "title": "Learning introduction",
+          "url": "https://example.com/learn?lesson=1#start",
+          "pinned": false
+        },
+        {
+          "id": 103,
+          "index": 3,
+          "groupId": 7,
+          "title": "Learning exercise",
+          "url": "https://example.com/exercise",
+          "pinned": false
+        },
+        {
+          "id": 104,
+          "index": 4,
+          "groupId": null,
+          "title": "Reading list",
+          "url": "https://example.com/reading",
+          "pinned": false
+        }
+      ],
+      "groups": [
+        {
+          "id": 7,
+          "title": "AI Learning",
+          "color": "blue",
+          "collapsed": true
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "focused": false,
+      "tabs": [
+        {
+          "id": 201,
+          "index": 0,
+          "groupId": null,
+          "title": "",
+          "url": "https://example.org/",
+          "pinned": false
+        }
+      ],
+      "groups": []
+    }
+  ]
+}

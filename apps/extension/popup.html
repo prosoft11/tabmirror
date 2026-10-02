@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TabMirror</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <img src="tabmirror.png" width="32" height="32" alt="" />
+        <h1>TabMirror</h1>
+      </div>
+      <span>LOCAL PROTOTYPE</span>
+    </header>
+    <p class="intro">Open tabs, organized as you left them.</p>
+    <aside>
+      Local development: uploads stay on this Mac. Sign in on the TabMirror site
+      to approve this extension.
+    </aside>
+    <form id="connect-form">
+      <label
+        >Device name<input
+          id="name"
+          maxlength="80"
+          value="My Mac"
+          required /></label
+      ><button id="pair-start" type="button">Pair with my account</button>
+      <details id="manual">
+        <summary>Developer connection</summary>
+        <label id="token-label"
+          >Local device token<input
+            id="token"
+            type="password"
+            autocomplete="off"
+            spellcheck="false"
+            minlength="64"
+            maxlength="64" /></label
+        ><button id="connect" type="submit">Connect with token</button>
+      </details>
+    </form>
+    <section id="pairing" hidden>
+      <h2>Approve on the website</h2>
+      <p>Pairing code: <strong id="pairing-code"></strong></p>
+      <p id="pairing-name"></p>
+      <p class="activity">
+        <span class="spinner" aria-hidden="true"></span
+        ><span id="pairing-status" role="status"></span>
+      </p>
+      <button id="pair-open" type="button">Open TabMirror sign-in</button>
+      <button id="pair-cancel" type="button">Cancel pairing</button>
+    </section>
+    <section id="controls" hidden>
+      <button id="rename">Save device name</button
+      ><button id="sync">Sync now</button><button id="pause">Pause sync</button
+      ><button id="disconnect" class="quiet">Disconnect</button>
+    </section>
+    <p id="activity" class="activity" role="status" hidden>
+      <span class="spinner" aria-hidden="true"></span
+      ><span id="activity-text"></span>
+    </p>
+    <p id="status" role="status">Loading…</p>
+    <p id="error" role="alert"></p>
+    <p class="note">
+      Incognito and unsupported URLs are excluded. Pausing keeps the last
+      uploaded snapshot.
+    </p>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

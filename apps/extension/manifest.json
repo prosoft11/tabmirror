@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "TabMirror \u2014 private local prototype",
+  "version": "0.2.0",
+  "description": "Mirror open Chrome windows, groups and tabs to your local development collector.",
+  "minimum_chrome_version": "120",
+  "incognito": "not_allowed",
+  "permissions": ["tabs", "tabGroups", "storage", "alarms"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TabMirror",
+    "default_icon": {
+      "16": "tabmirror.png",
+      "32": "tabmirror.png"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  },
+  "icons": {
+    "16": "tabmirror.png",
+    "32": "tabmirror.png",
+    "48": "tabmirror.png",
+    "128": "tabmirror.png"
+  }
+}

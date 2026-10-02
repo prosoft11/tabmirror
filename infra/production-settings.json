@@ -1,0 +1,13 @@
+{
+  "accountId": "400745793130",
+  "profile": "default",
+  "region": "us-west-2",
+  "certificateRegion": "us-east-1",
+  "hostname": "tabs.portuit.com",
+  "dnsProvider": "NameSilo",
+  "dnsManagedBy": "Daniel",
+  "notificationEmail": "daniel.portuit@gmail.com",
+  "monthlyBudgetUsd": 10,
+  "googleRedirectUri": "https://tabs.portuit.com/api/auth/callback",
+  "allowedEmails": ["daniel.portuit@gmail.com", "fhassan1776@gmail.com"]
+}
