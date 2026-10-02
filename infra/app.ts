@@ -39,6 +39,9 @@ if (
 const identity = JSON.parse(
   readFileSync('infra/extension-identity.json', 'utf8'),
 );
+const storeIdentity = JSON.parse(
+  readFileSync('infra/store-extension-identity.json', 'utf8'),
+);
 const app = new App();
 const certStack = new Stack(app, 'TabMirrorCertificate', {
   env: { account: settings.accountId, region: settings.certificateRegion },
@@ -130,7 +133,7 @@ const fn = new lambda.Function(site, 'Api', {
     NODE_ENV: 'production',
     EXPECTED_ACCOUNT: settings.accountId,
     WEB_ORIGIN: `https://${settings.hostname}`,
-    EXTENSION_ID: identity.id,
+    EXTENSION_IDS: [identity.id, storeIdentity.id].join(','),
     TABLE_NAME: table.tableName,
     SNAPSHOT_BUCKET: snapshots.bucketName,
     GOOGLE_ALLOWED_EMAILS: settings.allowedEmails.join(','),

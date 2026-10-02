@@ -6,6 +6,7 @@ import { CloudStore } from './store.js';
 import { DynamoBackend } from './transactions.js';
 import { S3Objects } from './objects.js';
 import { httpAdapter } from './http-adapter.js';
+import { extensionOrigins } from './extension-origins.js';
 import { WebAuth } from '../web-auth.js';
 import { createPrivateApi } from '../private-api.js';
 import { GoogleOidc, type IdentityProvider } from '../google-oidc.js';
@@ -25,9 +26,7 @@ function initialize() {
   const origin = required('WEB_ORIGIN');
   if (origin !== 'https://tabs.portuit.com')
     throw Error('Production origin mismatch');
-  const extensionId = required('EXTENSION_ID');
-  if (!/^[a-p]{32}$/.test(extensionId))
-    throw Error('Production extension identity required');
+  const extensionOrigin = extensionOrigins(required('EXTENSION_IDS'));
   const clientId = required('GOOGLE_CLIENT_ID'),
     clientSecret = required('GOOGLE_CLIENT_SECRET');
   const emails = required('GOOGLE_ALLOWED_EMAILS').split(',');
@@ -64,7 +63,7 @@ function initialize() {
     auth,
     allowedHosts: [new URL(origin).host],
     viewerOrigin: origin,
-    extensionOrigin: new RegExp(`^chrome-extension://${extensionId}$`),
+    extensionOrigin,
     clientIp,
     throttle: (key, maximum, ms) => store.throttle(key, maximum, ms),
     log: (event) => console.log(JSON.stringify(event)),

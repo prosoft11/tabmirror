@@ -200,6 +200,14 @@ try {
     ['-q', '-r', zip, ...(await readdir(`${out}/extension`))],
     { cwd: `${out}/extension` },
   );
+  const storeIdentity = JSON.parse(
+    await readFile('infra/store-extension-identity.json', 'utf8'),
+  );
+  await cp(`${out}/extension`, `${out}/store-id-test`, { recursive: true });
+  await writeFile(
+    `${out}/store-id-test/manifest.json`,
+    JSON.stringify({ ...manifest, key: storeIdentity.key }, null, 2) + '\n',
+  );
   await writeFile(
     `${out}/verification.json`,
     JSON.stringify(
@@ -210,14 +218,15 @@ try {
         screenshots: [1280, 800],
         promo: [440, 280],
         version: manifest.version,
-        storeIdPending: true,
+        storeId: storeIdentity.id,
+        storeIdPending: false,
       },
       null,
       2,
     ) + '\n',
   );
   console.log(
-    'Prepared Store ZIP, icons, promo, actual-UI screenshots; mobile scroll checks passed. Store ID and reviewer access still required.',
+    'Prepared Store ZIP and Store-ID unpacked test build; mobile scroll checks passed. Reviewer sign-in still requires verification.',
   );
 } finally {
   await browser.close();
