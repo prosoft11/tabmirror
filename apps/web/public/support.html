@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TabMirror Support</title>
+    <link rel="stylesheet" href="/legal.css" />
+  </head>
+  <body>
+    <header>
+      <img src="/tabmirror.png" alt="" width="48" height="48" /><a href="/"
+        >TabMirror</a
+      >
+    </header>
+    <main>
+      <h1>Help with TabMirror</h1>
+      <p>
+        A private Chrome extension and website for approved users. Contact
+        <a href="mailto:daniel.portuit@gmail.com">daniel.portuit@gmail.com</a>
+        for support or data-deletion requests. Never send passwords, session
+        tokens, pairing verifiers, or sensitive tab URLs.
+      </p>
+      <h2>Connect your desktop</h2>
+      <ol>
+        <li>Install the production TabMirror extension in desktop Chrome.</li>
+        <li>
+          Choose “Pair with my account”, then sign in at
+          <a href="/pair">Account &amp; devices</a>.
+        </li>
+        <li>
+          Enter the new code, compare its device name, and approve once. Keep
+          desktop Chrome open until connected.
+        </li>
+        <li>
+          On your phone, sign in with the same Google account and choose “Your
+          tabs”. You do not need to pair the phone separately.
+        </li>
+      </ol>
+      <h2>Pairing errors</h2>
+      <p>
+        Codes expire after ten minutes and can be used only once. Codes from the
+        local development extension do not work on this website. After repeated
+        attempts trigger a rate limit, stop trying for ten minutes, then
+        generate a fresh production code. If a device is already paired, revoke
+        it before pairing a replacement.
+      </p>
+      <h2>Tabs have not updated</h2>
+      <p>
+        Automatic Chrome sync and website polling each run about every two
+        minutes; a change may take about four minutes to appear. A sleeping
+        desktop or paused sync takes longer. Choose “Sync now” in the desktop
+        extension, then “Refresh” on the website.
+      </p>
+      <h2>Remove data</h2>
+      <p>
+        In Account &amp; devices, revoke a connection to stop uploads, or choose
+        “Delete device and data” to remove its saved tabs. Sign-out and
+        uninstall do not delete cloud data. Contact support for account
+        deletion.
+      </p>
+    </main>
+    <footer>
+      <a href="/privacy.html">Privacy policy</a> ·
+      <a href="/">Back to TabMirror</a>
+    </footer>
+  </body>
+</html>

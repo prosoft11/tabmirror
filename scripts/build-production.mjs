@@ -105,7 +105,7 @@ popup = popup
   .replace('LOCAL PROTOTYPE', 'PRIVATE SYNC')
   .replace(
     /<aside id="connection-environment">[\s\S]*?<\/aside>/,
-    '<aside id="connection-environment">Production: tabs.portuit.com. Pair this desktop Chrome profile at https://tabs.portuit.com/pair. On your phone, sign in to the same account to view its tabs.</aside>',
+    '<aside id="connection-environment">Production: tabs.portuit.com. Approving pairing uploads your open tab titles, full URLs, window and group details to your private TabMirror account on AWS, so you can view them on your phone. Automatic sync runs every two minutes. Incognito tabs are excluded. <a href="https://tabs.portuit.com/privacy.html" target="_blank" rel="noopener noreferrer">Privacy policy</a> · <a href="https://tabs.portuit.com/support.html" target="_blank" rel="noopener noreferrer">Support</a></aside>',
   )
   .replace(
     /<details id="manual">[\s\S]*?<\/details>/,

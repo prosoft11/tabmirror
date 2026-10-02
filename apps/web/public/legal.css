@@ -1,0 +1,35 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #223832;
+  background: #f5f6f2;
+  line-height: 1.65;
+}
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 32px 24px 64px;
+}
+a {
+  color: #244e3e;
+}
+header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid #cbd7c4;
+  padding-bottom: 20px;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 7vw, 48px);
+  line-height: 1.15;
+}
+h2 {
+  margin-top: 32px;
+  font-size: 22px;
+}
+footer {
+  border-top: 1px solid #cbd7c4;
+  margin-top: 40px;
+  padding-top: 20px;
+}

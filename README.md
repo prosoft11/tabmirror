@@ -69,3 +69,5 @@ The Google client secret belongs only in `.env` on the API server. The authentic
 The fixture preview needs no secrets. The legacy extension collector generates a local token in `.local/extension-connection.json`; keep it private. `.env*` (except the template), build output, local data and browser evidence are ignored. Future OAuth/AWS secrets belong only in approved environment/secret storage, never `VITE_*` client variables or Git. Generated validators are recreated before every build/test/typecheck and do not compile schemas with `eval` in browsers/extensions.
 
 See [the implementation plan](IMPLEMENTATION_PLAN.md), [Phase 1 contracts](docs/phase-1/README.md), and [Phase 2 verification](docs/phase-2-verification.md).
+
+Chrome Web Store private-release materials and dashboard steps are in [the submission guide](docs/chrome-web-store/submission-guide.md).

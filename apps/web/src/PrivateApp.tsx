@@ -21,6 +21,7 @@ export function PrivateApp() {
   const sessionRef = useRef<Session | null>(null);
   const refreshWork = useRef<Promise<void> | null>(null);
   const actionBusy = useRef(false);
+  const connectionStatus = useRef<HTMLDivElement>(null);
   const [session, setSession] = useState<Session | null>(null);
   sessionRef.current = session;
   const [devices, setDevices] = useState<Device[]>([]);
@@ -199,7 +200,7 @@ export function PrivateApp() {
   async function act(work: () => Promise<void>, label = 'Working…') {
     if (actionBusy.current) return;
     actionBusy.current = true;
-    setBusy(label);
+    flushSync(() => setBusy(label));
     setError('');
     setNotice('');
     try {
@@ -266,62 +267,64 @@ export function PrivateApp() {
           </button>
         </nav>
       )}
-      {busy && (
-        <p className="loading-line" role="status">
-          <Spinner />
-          {busy}
-        </p>
-      )}
-      {waiting && (
-        <div className={`pair-progress stage-${waiting.stage}`} role="status">
-          {connecting ? (
+      <div ref={connectionStatus} tabIndex={-1} aria-label="Connection status">
+        {busy && (
+          <p className="loading-line" role="status">
             <Spinner />
-          ) : (
-            <span aria-hidden="true">
-              {waiting.stage === 'ready' ? '✓' : '!'}
-            </span>
-          )}
-          <div>
-            <strong>
-              {waiting.stage === 'ready'
-                ? `${waiting.name} connected — tabs ready`
-                : waiting.stage === 'expired'
-                  ? 'Connection is taking longer than expected'
-                  : waiting.stage === 'syncing'
-                    ? `${waiting.name} connected. Waiting for first sync…`
-                    : `Connecting ${waiting.name}…`}
-            </strong>
-            <p>
-              {waiting.stage === 'ready'
-                ? 'Your saved tabs are now available. No page refresh needed.'
-                : waiting.stage === 'expired'
-                  ? 'Check the extension for an error. If the code expired, start pairing again; if it connected, choose Sync now.'
-                  : 'Keep desktop Chrome open. This page updates automatically as the extension connects.'}
-            </p>
-            {waiting.stage === 'ready' && (
-              <button
-                className="primary"
-                onClick={() => {
-                  navigate('tabs');
-                  setWaiting(null);
-                }}
-              >
-                View tabs
-              </button>
+            {busy}
+          </p>
+        )}
+        {waiting && (
+          <div className={`pair-progress stage-${waiting.stage}`} role="status">
+            {connecting ? (
+              <Spinner />
+            ) : (
+              <span aria-hidden="true">
+                {waiting.stage === 'ready' ? '✓' : '!'}
+              </span>
             )}
-            {waiting.stage === 'expired' && (
-              <button
-                onClick={() => {
-                  setWaiting(null);
-                  void refresh();
-                }}
-              >
-                Check devices
-              </button>
-            )}
+            <div>
+              <strong>
+                {waiting.stage === 'ready'
+                  ? `${waiting.name} connected — tabs ready`
+                  : waiting.stage === 'expired'
+                    ? 'Connection is taking longer than expected'
+                    : waiting.stage === 'syncing'
+                      ? `${waiting.name} connected. Waiting for first sync…`
+                      : `Connecting ${waiting.name}…`}
+              </strong>
+              <p>
+                {waiting.stage === 'ready'
+                  ? 'Your saved tabs are now available. No page refresh needed.'
+                  : waiting.stage === 'expired'
+                    ? 'Check the extension for an error. If the code expired, start pairing again; if it connected, choose Sync now.'
+                    : 'Keep desktop Chrome open. This page updates automatically as the extension connects.'}
+              </p>
+              {waiting.stage === 'ready' && (
+                <button
+                  className="primary"
+                  onClick={() => {
+                    navigate('tabs');
+                    setWaiting(null);
+                  }}
+                >
+                  View tabs
+                </button>
+              )}
+              {waiting.stage === 'expired' && (
+                <button
+                  onClick={() => {
+                    setWaiting(null);
+                    void refresh();
+                  }}
+                >
+                  Check devices
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
       {error && (
         <div role="alert" className="account-error">
           {error}
@@ -442,6 +445,19 @@ export function PrivateApp() {
                       disabled={!!busy}
                       onClick={() =>
                         void act(async () => {
+                          if (window.matchMedia('(max-width: 767px)').matches) {
+                            connectionStatus.current?.scrollIntoView({
+                              behavior: window.matchMedia(
+                                '(prefers-reduced-motion: reduce)',
+                              ).matches
+                                ? 'instant'
+                                : 'smooth',
+                              block: 'start',
+                            });
+                            connectionStatus.current?.focus({
+                              preventScroll: true,
+                            });
+                          }
                           await request('/api/pairings/approve', 'POST', {
                             id: pair.id,
                             code: pair.code,
@@ -551,6 +567,10 @@ export function PrivateApp() {
           )}
         </>
       )}
+      <footer className="footnote">
+        <a href="/privacy.html">Privacy policy</a> ·{' '}
+        <a href="/support.html">Support</a>
+      </footer>
     </main>
   );
 }
