@@ -44,7 +44,9 @@ The canonical logo is `apps/extension/tabmirror.png`. Builds copy it unchanged i
 | `npm run test:built`             | Smoke-test the bundled API and production startup refusal                              |
 | `npm run check`                  | Typecheck, tests, all builds, bundled API smoke test and formatting check              |
 
-Build outputs are `apps/api/dist`, `apps/web/dist`, and `apps/extension/dist`. Load the extension build in a dedicated Chrome profile and connect it to the durable private API using its `deviceToken` ([Phase 4 setup](docs/phase-4-private-api.md)). The bundled API can run with `node --env-file=.env apps/api/dist/main.js` while the development server is stopped. It deliberately refuses production mode until production auth/storage adapters exist.
+**For the hosted site:** follow [production extension installation](docs/production-extension.md). Use `artifacts/production/extension` with `tabs.portuit.com`; local extension codes will not work there.
+
+Local build outputs are `apps/api/dist`, `apps/web/dist`, and `apps/extension/dist`. Load the extension build in a dedicated Chrome profile and connect it to the durable private API using its `deviceToken` ([Phase 4 setup](docs/phase-4-private-api.md)). The bundled API can run with `node --env-file=.env apps/api/dist/main.js` while the development server is stopped. It deliberately refuses production mode until production auth/storage adapters exist.
 
 ## Workspace
 

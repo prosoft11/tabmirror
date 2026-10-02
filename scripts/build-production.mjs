@@ -104,8 +104,8 @@ let popup = await readFile('apps/extension/popup.html', 'utf8');
 popup = popup
   .replace('LOCAL PROTOTYPE', 'PRIVATE SYNC')
   .replace(
-    'Local development: uploads stay on this Mac. Sign in on the TabMirror site\n      to approve this extension.',
-    'Sign in on TabMirror to securely pair this Chrome profile with your account.',
+    /<aside id="connection-environment">[\s\S]*?<\/aside>/,
+    '<aside id="connection-environment">Production: tabs.portuit.com. Pair this desktop Chrome profile at https://tabs.portuit.com/pair. On your phone, sign in to the same account to view its tabs.</aside>',
   )
   .replace(
     /<details id="manual">[\s\S]*?<\/details>/,
